@@ -9,6 +9,12 @@ export async function generateRoomDesign(
 
   formData.append("image_file", imageFile);
 
+  const apiKey = import.meta.env.VITE_CLIPDROP_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Clipdrop API key is not configured");
+  }
+
   try {
     const response = await axios.post(
       "https://clipdrop-api.co/reimagine/v1/reimagine",
@@ -17,8 +23,7 @@ export async function generateRoomDesign(
         responseType: "blob",
 
         headers: {
-          "x-api-key":
-            "YOUR_API_KEY_HERE",
+          "x-api-key": apiKey,
         },
 
         params: {
