@@ -1,0 +1,16 @@
+# Hauz360 Design Studio
+
+> Luxury interior design studio creating elegant, functional interiors for homes, offices, modular kitchens and commercial spaces.
+
+Hauz360 Design Studio offers residential, office, commercial and turnkey interior design services with 3D visualization and end-to-end project execution.
+
+## Pages
+
+- [Home](/): Overview of services, portfolio and studio.
+- [About](/about): Studio story, vision, mission and values.
+- [Services](/services): Residential, modular kitchen, office, commercial, 3D and turnkey services.
+- [Projects](/projects): Portfolio of recent interior design projects.
+- [Process](/process): Seven-step design process from consultation to handover.
+- [Gallery](/gallery): Visual gallery of interior work.
+- [Testimonials](/testimonials): Client reviews.
+- [Contact](/contact): Get in touch and book a free consultation.

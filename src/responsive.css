@@ -1,0 +1,219 @@
+/* =========================
+   GLOBAL RESPONSIVE SYSTEM
+========================= */
+
+/* Container */
+.container-luxury {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-luxury {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-luxury {
+    max-width: 1280px;
+    padding-inline: 2rem;
+  }
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Videos & iframe */
+iframe,
+video {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Prevent horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1 {
+  font-size: clamp(2rem, 5vw, 5rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+p {
+  font-size: clamp(0.95rem, 1.5vw, 1rem);
+}
+
+/* Buttons */
+button,
+a {
+  touch-action: manipulation;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Grid responsive helpers */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.responsive-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .responsive-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .responsive-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Responsive padding */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Card responsiveness */
+.responsive-card {
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+@media (min-width: 768px) {
+  .responsive-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-card {
+    padding: 2rem;
+  }
+}
+
+/* Popup responsiveness */
+.responsive-popup {
+  width: 100%;
+  max-width: 95%;
+}
+
+@media (min-width: 640px) {
+  .responsive-popup {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-popup {
+    max-width: 850px;
+  }
+}
+
+/* Navbar responsive */
+.responsive-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Mobile text alignment */
+@media (max-width: 640px) {
+  .mobile-center {
+    text-align: center;
+  }
+
+  .mobile-full {
+    width: 100%;
+  }
+
+  .mobile-stack {
+    flex-direction: column;
+  }
+}
+
+/* Smooth scaling */
+.responsive-scale {
+  transition: all 0.3s ease;
+}
+
+.responsive-scale:hover {
+  transform: translateY(-4px);
+}
+
+/* Table responsive */
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Prevent long text breaking layout */
+.break-anywhere {
+  overflow-wrap: anywhere;
+}
