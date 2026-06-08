@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PageHeader } from "./about";
 import {
   Phone,
@@ -6,11 +6,10 @@ import {
   MapPin,
   Clock,
   Send,
-  CheckCircle2,
-  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import envConfig from "../lib/env";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -27,6 +26,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const OWNER_EMAIL = "barathraj1818@gmail.com";
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(envConfig.contact.mapsQuery)}&output=embed`;
 
 type FormState = {
   name: string;
@@ -38,11 +38,7 @@ type FormState = {
 };
 
 function Contact() {
-  const [sent, setSent] = useState(false);
-
-  const [submitted, setSubmitted] =
-    useState<FormState | null>(null);
-
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState<FormState>({
@@ -97,8 +93,15 @@ function Contact() {
         }
       );
 
-      setSubmitted(form);
-      setSent(true);
+      // Navigate to thank you page with user info
+      navigate({
+        to: "/thank-you",
+        search: {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+        },
+      });
 
       setForm({
         name: "",
@@ -187,108 +190,98 @@ function Contact() {
 
             {/* RIGHT SIDE */}
             <div className="lg:col-span-3">
-              {sent && submitted ? (
-                <ThankYouCard
-                  data={submitted}
-                  onReset={() => {
-                    setSent(false);
-                    setSubmitted(null);
-                  }}
-                />
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="bg-card border border-border/60 p-5 sm:p-8 md:p-10 rounded-3xl shadow-luxury"
-                >
-                  <h2 className="font-display text-2xl sm:text-3xl mb-2">
-                    Book Free Consultation
-                  </h2>
+              <form
+                onSubmit={handleSubmit}
+                className="bg-card border border-border/60 p-5 sm:p-8 md:p-10 rounded-3xl shadow-luxury"
+              >
+                <h2 className="font-display text-2xl sm:text-3xl mb-2">
+                  Book Free Consultation
+                </h2>
 
-                  <p className="text-sm text-muted-foreground mb-6">
-                    Fill the form and our team will contact
-                    you shortly.
-                  </p>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Fill the form and our team will contact
+                  you shortly.
+                </p>
 
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field
-                        label="Full Name"
-                        name="name"
-                        required
-                        value={form.name}
-                        onChange={update("name")}
-                      />
-
-                      <Field
-                        label="Phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        value={form.phone}
-                        onChange={update("phone")}
-                      />
-                    </div>
-
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field
-                      label="Email"
-                      name="email"
-                      type="email"
+                      label="Full Name"
+                      name="name"
                       required
-                      value={form.email}
-                      onChange={update("email")}
+                      value={form.name}
+                      onChange={update("name")}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field
-                        label="Project Type"
-                        name="type"
-                        placeholder="Apartment / Villa / Office"
-                        value={form.type}
-                        onChange={update("type")}
-                      />
-
-                      <Field
-                        label="Location"
-                        name="location"
-                        placeholder="Chennai / Dubai"
-                        value={form.location}
-                        onChange={update("location")}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-xs uppercase tracking-widest text-muted-foreground">
-                        Project Details
-                      </label>
-
-                      <textarea
-                        rows={5}
-                        value={form.message}
-                        onChange={update("message")}
-                        placeholder="Tell us about your project..."
-                        className="mt-2 w-full bg-background border border-border focus:border-gold outline-none px-4 py-3 text-sm rounded-xl resize-none transition-all"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl hover:bg-[oklch(0.55_0.12_70)] transition-all font-medium"
-                    >
-                      {loading
-                        ? "Sending..."
-                        : "Send Inquiry"}
-
-                      <Send className="w-4 h-4" />
-                    </button>
-
-                    <p className="text-[11px] text-center text-muted-foreground">
-                      Your enquiry will be securely delivered
-                      to our email team.
-                    </p>
+                    <Field
+                      label="Phone"
+                      name="phone"
+                      type="tel"
+                      required
+                      value={form.phone}
+                      onChange={update("phone")}
+                    />
                   </div>
-                </form>
-              )}
+
+                  <Field
+                    label="Email"
+                    name="email"
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={update("email")}
+                  />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Field
+                      label="Project Type"
+                      name="type"
+                      placeholder="Apartment / Villa / Office"
+                      value={form.type}
+                      onChange={update("type")}
+                    />
+
+                    <Field
+                      label="Location"
+                      name="location"
+                      placeholder="Chennai / Dubai"
+                      value={form.location}
+                      onChange={update("location")}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs uppercase tracking-widest text-muted-foreground">
+                      Project Details
+                    </label>
+
+                    <textarea
+                      rows={5}
+                      value={form.message}
+                      onChange={update("message")}
+                      placeholder="Tell us about your project..."
+                      className="mt-2 w-full bg-background border border-border focus:border-gold outline-none px-4 py-3 text-sm rounded-xl resize-none transition-all"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl hover:bg-[oklch(0.55_0.12_70)] transition-all font-medium"
+                  >
+                    {loading
+                      ? "Sending..."
+                      : "Send Inquiry"}
+
+                    <Send className="w-4 h-4" />
+                  </button>
+
+                  <p className="text-[11px] text-center text-muted-foreground">
+                    Your enquiry will be securely delivered
+                    to our email team.
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -301,7 +294,7 @@ function Contact() {
             <div className="overflow-hidden rounded-3xl border border-border/60 shadow-luxury aspect-[16/9] sm:aspect-[16/8]">
               <iframe
                 title="Hauz360 Location"
-                src="https://www.google.com/maps?q=Railway+Colony+3rd+Street+2nd+Main+Road+Aminjikarai+Chennai&output=embed"
+                src={MAP_EMBED_URL}
                 className="w-full h-full"
                 loading="lazy"
               />
@@ -310,114 +303,6 @@ function Contact() {
         </div>
       </section>
     </>
-  );
-}
-
-function ThankYouCard({
-  data,
-  onReset,
-}: {
-  data: FormState;
-  onReset: () => void;
-}) {
-  return (
-    <div className="bg-card border border-gold/40 rounded-3xl overflow-hidden shadow-luxury">
-      {/* TOP */}
-      <div className="bg-gradient-dark text-primary-foreground p-6 sm:p-10 text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,var(--gold)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,var(--gold)_0%,transparent_50%)]" />
-
-        <div className="relative z-10">
-          <div className="w-20 h-20 rounded-full bg-gradient-gold mx-auto flex items-center justify-center shadow-gold mb-5">
-            <CheckCircle2 className="w-10 h-10 text-primary" />
-          </div>
-
-          <div className="flex items-center justify-center gap-2 text-gold text-xs uppercase tracking-[0.25em] mb-3">
-            <Sparkles className="w-3 h-3" />
-            Enquiry Received
-            <Sparkles className="w-3 h-3" />
-          </div>
-
-          <h2 className="font-display text-3xl sm:text-5xl mb-3">
-            Thank You!
-          </h2>
-
-          <p className="text-sm sm:text-base text-primary-foreground/80 max-w-lg mx-auto">
-            Your enquiry has been delivered successfully.
-            Our team will contact you within 24 hours.
-          </p>
-        </div>
-      </div>
-
-      {/* BODY */}
-      <div className="p-5 sm:p-8 space-y-6">
-        <div className="border border-border/60 rounded-2xl p-5 bg-background/40">
-          <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-4">
-            Enquiry Summary
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <SummaryRow
-              label="Name"
-              value={data.name}
-            />
-
-            <SummaryRow
-              label="Phone"
-              value={data.phone}
-            />
-
-            <SummaryRow
-              label="Email"
-              value={data.email}
-              full
-            />
-
-            {data.type && (
-              <SummaryRow
-                label="Project Type"
-                value={data.type}
-              />
-            )}
-
-            {data.location && (
-              <SummaryRow
-                label="Location"
-                value={data.location}
-              />
-            )}
-          </div>
-        </div>
-
-        <button
-          onClick={onReset}
-          className="w-full py-3.5 rounded-xl bg-gradient-gold text-primary font-medium hover:shadow-gold transition-all"
-        >
-          Send Another Enquiry
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function SummaryRow({
-  label,
-  value,
-  full,
-}: {
-  label: string;
-  value: string;
-  full?: boolean;
-}) {
-  return (
-    <div className={full ? "sm:col-span-2" : ""}>
-      <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
-        {label}
-      </div>
-
-      <div className="font-medium break-words">
-        {value}
-      </div>
-    </div>
   );
 }
 

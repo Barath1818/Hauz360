@@ -116,7 +116,7 @@ const services = [
 
 const stats = [
   {
-    value: "250+",
+    value: "150+",
     label: "Projects Delivered",
   },
 

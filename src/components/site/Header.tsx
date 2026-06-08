@@ -3,7 +3,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { ClickConsultPopup } from "./ClickConsultPopup";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const links = [
@@ -21,7 +20,6 @@ const links = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -84,8 +82,8 @@ export function Header() {
           </nav>
 
           {/* Desktop Free Consultation Button */}
-          <button
-            onClick={() => setIsPopupOpen(true)}
+          <Link
+            to="/contact"
             className={`hidden lg:inline-flex items-center px-3 xl:px-5 py-1.5 xl:py-2.5 text-xs xl:text-sm font-medium tracking-wide transition-all duration-300 ${
               solid
                 ? "bg-primary text-white hover:bg-gradient-gold hover:text-primary hover:text-white hover:shadow-lg hover:-translate-y-0.5"
@@ -93,7 +91,7 @@ export function Header() {
             }`}
           >
             Free Consultation
-          </button>
+          </Link>
 
           {/* Mobile/Tablet Menu Button */}
           <button
@@ -130,22 +128,18 @@ export function Header() {
                     {l.label}
                   </Link>
                 ))}
-                <button
-                  onClick={() => {
-                    setOpen(false);
-                    setIsPopupOpen(true);
-                  }}
+                <Link
+                  to="/contact"
+                  onClick={() => setOpen(false)}
                   className="text-base sm:text-lg py-3 sm:py-4 px-4 mt-3 bg-gradient-gold text-primary font-medium text-center hover:shadow-gold transition-all rounded-md"
                 >
                   Free Consultation
-                </button>
+                </Link>
               </nav>
             </div>
           </>
         )}
       </header>
-
-      <ClickConsultPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </>
   );
 }
