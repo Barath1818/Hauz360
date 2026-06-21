@@ -4,10 +4,10 @@ import { PageHeader } from "./about";
 export const Route = createFileRoute("/process")({
   head: () => ({
     meta: [
-      { title: "Our Process — Hauz360 Design Studio" },
-      { name: "description", content: "From consultation to final handover — a transparent 7-step interior design process." },
-      { property: "og:title", content: "Our Process — Hauz360" },
-      { property: "og:description", content: "7 steps from consultation to handover." },
+      { title: "Our Design Process — Hauz360 Design Studio" },
+      { name: "description", content: "Transparent 3-stage design process with clear payment milestones: Booking (10%), Placement Order (40%), Execution & Pre-Delivery (50%)." },
+      { property: "og:title", content: "Our Design Process — Hauz360" },
+      { property: "og:description", content: "3-stage process with transparent payment milestones." },
       { property: "og:url", content: "/process" },
     ],
     links: [{ rel: "canonical", href: "/process" }],
@@ -16,13 +16,9 @@ export const Route = createFileRoute("/process")({
 });
 
 const steps = [
-  { n: "01", title: "Consultation", desc: "Understanding client requirements, style preferences and budget." },
-  { n: "02", title: "Site Visit", desc: "Analyzing the project space and taking detailed measurements." },
-  { n: "03", title: "Design Planning", desc: "Creating concepts, layouts and mood boards tailored to your vision." },
-  { n: "04", title: "3D Visualization", desc: "Providing realistic 3D designs and walkthroughs for approval." },
-  { n: "05", title: "Material Selection", desc: "Selecting premium finishes, colors, textures and furnishings." },
-  { n: "06", title: "Execution", desc: "Professional implementation with strict quality control." },
-  { n: "07", title: "Final Handover", desc: "Project completion with full client walkthrough and satisfaction." },
+  { n: "10%", title: "Booking Fee", desc: "Paid upfront to lock in your designer, begin space planning, and initiate 3D visualizations." },
+  { n: "40%", title: "Placement Order / Initiation", desc: "Due once you finalize the designs and sign off on technical plans. This triggers material procurement and factory manufacturing." },
+  { n: "50%", title: "Execution & Pre-Delivery", desc: "Usually divided into progressive milestones during execution. The final balance is due prior to modular delivery, installation, or commencement of major on-site services." },
 ];
 
 function Process() {
@@ -31,6 +27,10 @@ function Process() {
       <PageHeader eyebrow="How We Work" title="Our Design Process" />
       <section className="py-20">
         <div className="container-luxury">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-2xl mb-2">Complete Payment Structure (100%)</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Our transparent 3-stage payment model ensures every milestone is clear from the start.</p>
+          </div>
           <div className="relative">
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-border" />
             <div className="space-y-12">

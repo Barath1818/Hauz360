@@ -189,7 +189,7 @@ function ThankYou() {
                     href="mailto:splusaarchitectureandinteriors@gmail.com"
                     className="text-sm font-medium text-foreground hover:text-gold transition-colors truncate"
                   >
-                    s+a@hauz360.com
+                    hauz360degree@gmail.com
                   </a>
                 </div>
               </div>

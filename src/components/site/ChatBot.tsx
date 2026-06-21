@@ -51,7 +51,7 @@ function reply(input: string): Msg {
     return {
       role: "bot",
       text:
-        "📞 +91 97898 71626\n✉️ splusaarchitectureandinteriors@gmail.com",
+        "📞 +91 97898 71626\n✉️ hauz360degree@gmail.com",
       options: ["Book Consultation"],
     };
   }

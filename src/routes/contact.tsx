@@ -25,7 +25,7 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const OWNER_EMAIL = "barathraj1818@gmail.com";
+const OWNER_EMAIL = "hauz360degree@gmail.com";
 const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(envConfig.contact.mapsQuery)}&output=embed`;
 
 type FormState = {
@@ -76,8 +76,8 @@ function Contact() {
 
     try {
       await emailjs.send(
-        "service_hzvz8ke",
-        "template_f13xyki",
+        "service_ad5fhxh",
+        "template_c39s7pr",
         {
           name: form.name,
           phone: form.phone,
@@ -89,7 +89,7 @@ function Contact() {
           time: new Date().toLocaleString(),
         },
         {
-          publicKey: "u0RzhM5NwbGls8J4d",
+          publicKey: "HTKACiAJ_BZXqVubc",
         }
       );
 
@@ -158,7 +158,7 @@ function Contact() {
                   Icon: Mail,
                   label: "Email",
                   value:
-                    "splusaarchitectureandinteriors@gmail.com",
+                    "hauz360degree@gmail.com",
                 },
                 {
                   Icon: Clock,

@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import {
   Outlet,
   Link,
@@ -103,8 +104,7 @@ export const Route =
 
         {
           name: "viewport",
-          content:
-            "width=device-width, initial-scale=1",
+          content: "width=device-width, initial-scale=1",
         },
 
         {
@@ -140,6 +140,13 @@ export const Route =
           rel: "stylesheet",
           href:
             "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap",
+        },
+
+        // FAVICON
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
         },
       ],
     }),

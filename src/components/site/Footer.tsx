@@ -52,7 +52,7 @@ export function Footer() {
           <ul className="space-y-3 text-xs sm:text-sm text-primary-foreground/80">
             <li className="flex gap-2 sm:gap-3"><MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-gold shrink-0 mt-0.5" /><span className="text-xs sm:text-sm">No. 9, Railway Colony 3rd Street, 2nd Main Road, Aminjikarai, Chennai, Tamil Nadu</span></li>
             <li className="flex gap-2 sm:gap-3"><Phone className="w-3 h-3 sm:w-4 sm:h-4 text-gold shrink-0 mt-0.5" /><a href="tel:+919789871626" className="hover:text-gold text-xs sm:text-sm">+91 97898 71626</a></li>
-            <li className="flex gap-2 sm:gap-3"><Mail className="w-3 h-3 sm:w-4 sm:h-4 text-gold shrink-0 mt-0.5" /><a href="mailto:splusaarchitectureandinteriors@gmail.com" className="hover:text-gold break-all text-xs sm:text-sm">splusaarchitectureandinteriors@gmail.com</a></li>
+            <li className="flex gap-2 sm:gap-3"><Mail className="w-3 h-3 sm:w-4 sm:h-4 text-gold shrink-0 mt-0.5" /><a href="mailto:hauz360degree@gmail.com" className="hover:text-gold break-all text-xs sm:text-sm">hauz360degree@gmail.com</a></li>
           </ul>
         </div>
       </div>

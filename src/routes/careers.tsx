@@ -16,7 +16,7 @@ export const Route = createFileRoute("/careers")({
   component: Careers,
 });
 
-const CAREERS_EMAIL = "hauz360@gmail.com";
+const CAREERS_EMAIL = "hauz360degree@gmail.com";
 
 type Job = {
   title: string;
