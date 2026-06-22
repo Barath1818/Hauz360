@@ -59,7 +59,7 @@ export function Footer() {
 
       <div className="border-t border-primary-foreground/10">
         <div className="container-luxury py-4 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[10px] sm:text-xs text-primary-foreground/60 px-4 sm:px-6">
-          <p>&copy; {new Date().getFullYear()} Hauz360 — Splus A Architecture & Interior. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Hauz360 - All rights reserved.</p>
           <p className="italic font-display text-gold/80 text-center">"Architecture and Interior Solutions."</p>
         </div>
       </div>
