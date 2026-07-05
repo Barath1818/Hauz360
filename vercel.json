@@ -1,10 +1,9 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": "dist/client",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/assets/(.*)", "destination": "/client/assets/$1" },
-    { "source": "/(.*)", "destination": "/server/server.js" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
