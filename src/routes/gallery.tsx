@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "./about";
-import livingImg from "@/assets/hero-living.jpg";
+import livingImg from "@/assets/hero_living2.jpg";
 import kitchenImg from "@/assets/kitchen.jpg";
 import officeImg from "@/assets/office.jpg";
 import commercialImg from "@/assets/commercial.jpg";
-import bedroomImg from "@/assets/bedroom.jpg";
-import villaImg from "@/assets/villa.jpg";
+import bedroomImg from "@/assets/bed.jpg";
+import villaImg from "@/assets/vilas.jpg";
+import furniture from "@/assets/furniture.jpg";
+import celing from "@/assets/ceiling.jpg";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -28,8 +30,8 @@ const items = [
   { img: officeImg, cat: "Office", size: "wide" },
   { img: villaImg, cat: "Villa", size: "tall" },
   { img: commercialImg, cat: "Commercial", size: "wide" },
-  { img: livingImg, cat: "Ceiling Design", size: "wide" },
-  { img: bedroomImg, cat: "Furniture", size: "tall" },
+  { img: celing, cat: "Ceiling Design", size: "wide" },
+  { img: furniture, cat: "Furniture", size: "tall" },
 ];
 
 function Gallery() {

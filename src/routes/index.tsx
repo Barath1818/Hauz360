@@ -16,15 +16,26 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-import heroImg from "@/assets/hero-living.jpg";
-import kitchenImg from "@/assets/kitchen.jpg";
-import officeImg from "@/assets/office.jpg";
-import bedroomImg from "@/assets/bedroom.jpg";
-import villaImg from "@/assets/villa.jpg";
-import commercialImg from "@/assets/commercial.jpg";
+// Import all project images
+import livingImg from "@/assets/hero1.jpg";
+import kitchenImg from "@/assets/Kit1.jpg";
+import officeImg from "@/assets/off2.jpg";
+import bathroomImg from "@/assets/Bath3.jpg";
+import villaImg from "@/assets/vilas1.jpg";
+import livingImg2 from "@/assets/hero2.jpg";
+import kitchenImg2 from "@/assets/Kit2.jpg";
+import officeImg2 from "@/assets/off3.jpg";
+import bathroomImg2 from "@/assets/Bath1.jpg";
+import villaImg2 from "@/assets/vilas2.jpg";
+import hero from "@/assets/hero-living.jpg";
+
+// Import images for the 4 new projects
+import bashyamImg1 from "@/assets/bashyam1.jpg";
+import sugalImg1 from "@/assets/sugal1.jpg";
+import aceImg1 from "@/assets/ace1.jpg";
+import nrcImg1 from "@/assets/nrc1.jpg";
 
 import { SectionHeading } from "@/components/site/SectionHeading";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -64,49 +75,41 @@ const services = [
     title: "Residential Interiors",
     desc: "Beautiful, functional interiors for apartments, villas and homes.",
   },
-
   {
     icon: Briefcase,
     title: "Office Interiors",
     desc: "Modern office designs that boost productivity and brand image.",
   },
-
   {
     icon: ChefHat,
     title: "Modular Kitchen",
     desc: "Smart, stylish and space-efficient kitchen solutions.",
   },
-
   {
     icon: Bed,
     title: "Bedroom Interiors",
     desc: "Elegant, comfortable bedroom concepts with custom furniture.",
   },
-
   {
     icon: Sofa,
     title: "Living Room Design",
     desc: "Stylish living spaces with modern aesthetics and premium finishes.",
   },
-
   {
     icon: Store,
     title: "Commercial Interiors",
     desc: "Retail shops, showrooms, cafes and commercial spaces.",
   },
-
   {
     icon: LayoutGrid,
     title: "Space Planning",
     desc: "Optimized layouts for better functionality and flow.",
   },
-
   {
     icon: Box,
     title: "3D Design & Visualization",
     desc: "Realistic 3D interior concepts before execution.",
   },
-
   {
     icon: Hammer,
     title: "Renovation & Remodeling",
@@ -119,58 +122,73 @@ const stats = [
     value: "150+",
     label: "Projects Delivered",
   },
-
   {
     value: "12+",
     label: "Years Experience",
   },
-
   {
     value: "98%",
     label: "Client Satisfaction",
   },
-
   {
     value: "40+",
     label: "Expert Designers",
   },
 ];
 
+// Updated projects with the 4 new projects first, then the original ones
 const projects = [
+  // 4 New Projects (displayed first)
   {
-    img: heroImg,
-    title: "Luxury Penthouse",
-    tag: "Residential",
+    img: bashyamImg1,
+    title: "Bashyam Crown M1",
+    tag: "Bashyam Crown",
   },
-
+  {
+    img: sugalImg1,
+    title: "Sugal & Damani Lakeside",
+    tag: "Sugal & Damani",
+  },
+  {
+    img: aceImg1,
+    title: "The Ace by Risland",
+    tag: "The Ace",
+  },
+  {
+    img: nrcImg1,
+    title: "NRC Fresh Cuts",
+    tag: "NRC",
+  },
+  // Original projects
+  {
+    img: livingImg,
+    title: "Skyline Penthouse",
+    tag: "Luxury Home",
+  },
   {
     img: villaImg,
-    title: "Villa Dining Hall",
+    title: "Heritage Villa",
     tag: "Villa",
   },
-
   {
     img: officeImg,
-    title: "Corporate Workspace",
+    title: "Apex Corporate HQ",
     tag: "Office",
   },
-
   {
     img: kitchenImg,
-    title: "Modular Kitchen Suite",
+    title: "Aurelia Modular Kitchen",
     tag: "Kitchen",
   },
-
   {
-    img: bedroomImg,
-    title: "Master Bedroom",
-    tag: "Bedroom",
+    img: bathroomImg,
+    title: "Serenity Spa Bathroom",
+    tag: "Bathroom",
   },
-
   {
-    img: commercialImg,
-    title: "Boutique Showroom",
-    tag: "Commercial",
+    img: livingImg2,
+    title: "Modern Living Space",
+    tag: "Residential",
   },
 ];
 
@@ -180,7 +198,7 @@ function Index() {
       {/* HERO */}
       <section className="relative -mt-20 min-h-screen flex items-center text-primary-foreground overflow-hidden">
         <img
-          src={heroImg}
+          src={hero}
           alt="Luxury interior design by Hauz360"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -191,7 +209,6 @@ function Index() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-5">
               <span className="h-px w-8 sm:w-10 bg-gold" />
-
               <span className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-gold">
                 Hauz360 Design Studio
               </span>
@@ -217,7 +234,6 @@ function Index() {
                 className="group inline-flex items-center justify-center gap-2 bg-gradient-gold text-primary px-6 py-3.5 font-medium rounded-xl hover:shadow-gold transition-all"
               >
                 Get Free Consultation
-
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
 
@@ -242,7 +258,6 @@ function Index() {
                 <div className="font-display text-2xl sm:text-3xl md:text-4xl text-gold">
                   {s.value}
                 </div>
-
                 <div className="text-[10px] sm:text-xs tracking-widest uppercase text-muted-foreground mt-1">
                   {s.label}
                 </div>
@@ -264,7 +279,6 @@ function Index() {
 
             <div className="absolute bottom-4 right-4 sm:-bottom-6 sm:-right-6 bg-gradient-gold text-primary p-4 sm:p-6 rounded-xl max-w-[220px]">
               <Sparkles className="w-5 h-5 mb-2" />
-
               <p className="font-display text-base sm:text-lg leading-tight">
                 Crafted with passion since day one
               </p>
@@ -301,7 +315,6 @@ function Index() {
                   className="flex items-center gap-2 text-sm"
                 >
                   <CheckCircle2 className="w-4 h-4 text-gold shrink-0" />
-
                   {f}
                 </li>
               ))}
@@ -312,7 +325,6 @@ function Index() {
               className="inline-flex items-center gap-2 text-gold font-medium hover:gap-3 transition-all"
             >
               Learn more about us
-
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -364,9 +376,10 @@ function Index() {
 
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
             {projects.map((p) => (
-              <div
+              <Link
                 key={p.title}
-                className="group relative overflow-hidden aspect-[4/5] rounded-2xl"
+                to="/projects"
+                className="group relative overflow-hidden aspect-[4/5] rounded-2xl block"
               >
                 <img
                   src={p.img}
@@ -385,7 +398,7 @@ function Index() {
                     {p.title}
                   </h3>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -395,7 +408,6 @@ function Index() {
               className="inline-flex items-center gap-2 px-6 py-3.5 border border-foreground/30 rounded-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
             >
               View All Projects
-
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -418,12 +430,10 @@ function Index() {
                 q: "Hauz360 transformed our home beautifully.",
                 n: "Priya & Rohan",
               },
-
               {
                 q: "Professional team with excellent creativity.",
                 n: "Anand Mehta",
               },
-
               {
                 q: "Highly recommended for luxury interiors.",
                 n: "Sneha Kapoor",
@@ -474,7 +484,6 @@ function Index() {
                 className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-xl hover:bg-charcoal transition-colors"
               >
                 <Phone className="w-4 h-4" />
-
                 Book Consultation
               </Link>
 
@@ -491,3 +500,5 @@ function Index() {
     </>
   );
 }
+
+export default Index;

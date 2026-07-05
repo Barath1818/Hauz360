@@ -129,67 +129,8 @@ function Contact() {
       <section className="py-12 md:py-20">
         <div className="container-luxury px-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* LEFT SIDE */}
-            <div className="lg:col-span-2 space-y-5">
-              <div>
-                <h2 className="font-display text-2xl sm:text-3xl mb-3">
-                  Visit Our Studio
-                </h2>
-
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  Drop by our studio or reach out — we'd love
-                  to hear about your project.
-                </p>
-              </div>
-
-              {[
-                {
-                  Icon: MapPin,
-                  label: "Office Address",
-                  value:
-                    "No. 9, Railway Colony 3rd Street, 2nd Main Road, Aminjikarai, Chennai",
-                },
-                {
-                  Icon: Phone,
-                  label: "Phone",
-                  value: "+91 97898 71626",
-                },
-                {
-                  Icon: Mail,
-                  label: "Email",
-                  value:
-                    "hauz360degree@gmail.com",
-                },
-                {
-                  Icon: Clock,
-                  label: "Working Hours",
-                  value:
-                    "Monday – Sunday : 10:30 AM – 8:00 PM",
-                },
-              ].map(({ Icon, label, value }) => (
-                <div
-                  key={label}
-                  className="flex gap-4 p-4 sm:p-5 border border-border/60 rounded-2xl bg-card hover:border-gold transition-all"
-                >
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-gold flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-primary" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <div className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                      {label}
-                    </div>
-
-                    <div className="font-medium mt-1 text-sm sm:text-base break-words">
-                      {value}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* RIGHT SIDE */}
-            <div className="lg:col-span-3">
+            {/* RIGHT SIDE - Book Consultation Form (Shows first on mobile) */}
+            <div className="lg:col-span-3 order-first lg:order-last">
               <form
                 onSubmit={handleSubmit}
                 className="bg-card border border-border/60 p-5 sm:p-8 md:p-10 rounded-3xl shadow-luxury"
@@ -282,6 +223,65 @@ function Contact() {
                   </p>
                 </div>
               </form>
+            </div>
+
+            {/* LEFT SIDE - Visit Our Studio (Shows second on mobile) */}
+            <div className="lg:col-span-2 space-y-5 order-last lg:order-first">
+              <div>
+                <h2 className="font-display text-2xl sm:text-3xl mb-3">
+                  Visit Our Studio
+                </h2>
+
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  Drop by our studio or reach out — we'd love
+                  to hear about your project.
+                </p>
+              </div>
+
+              {[
+                {
+                  Icon: MapPin,
+                  label: "Office Address",
+                  value:
+                    "No. 9, Railway Colony 3rd Street, 2nd Main Road, Aminjikarai, Chennai",
+                },
+                {
+                  Icon: Phone,
+                  label: "Phone",
+                  value: "+91 97898 71626",
+                },
+                {
+                  Icon: Mail,
+                  label: "Email",
+                  value:
+                    "hauz360degree@gmail.com",
+                },
+                {
+                  Icon: Clock,
+                  label: "Working Hours",
+                  value:
+                    "Monday – Sunday : 10:30 AM – 8:00 PM",
+                },
+              ].map(({ Icon, label, value }) => (
+                <div
+                  key={label}
+                  className="flex gap-4 p-4 sm:p-5 border border-border/60 rounded-2xl bg-card hover:border-gold transition-all"
+                >
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-gold flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <div className="text-[11px] uppercase tracking-widest text-muted-foreground">
+                      {label}
+                    </div>
+
+                    <div className="font-medium mt-1 text-sm sm:text-base break-words">
+                      {value}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

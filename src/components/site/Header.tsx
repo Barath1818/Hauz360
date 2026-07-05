@@ -34,6 +34,7 @@ export function Header() {
 
   const solid = scrolled || !isHome;
 
+  // Close mobile menu when screen size changes to desktop
   useEffect(() => {
     if (!isMobile && open) {
       setOpen(false);
@@ -52,6 +53,17 @@ export function Header() {
     };
   }, [open]);
 
+  // Close menu on ESC key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [open]);
+
   return (
     <>
       <header
@@ -64,7 +76,7 @@ export function Header() {
             <Logo light={!solid} className="text-base sm:text-xl md:text-2xl" />
           </Link>
 
-          {/* Desktop Navigation - Hidden on mobile/tablet */}
+          {/* Desktop Navigation - Hidden on tablet and below */}
           <nav className="hidden lg:flex items-center gap-3 xl:gap-5 2xl:gap-7">
             {links.map((l) => (
               <Link
@@ -81,7 +93,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop Free Consultation Button */}
+          {/* Desktop Free Consultation Button - Hidden on tablet and below */}
           <Link
             to="/contact"
             className={`hidden lg:inline-flex items-center px-3 xl:px-5 py-1.5 xl:py-2.5 text-xs xl:text-sm font-medium tracking-wide transition-all duration-300 ${
@@ -93,13 +105,14 @@ export function Header() {
             Free Consultation
           </Link>
 
-          {/* Mobile/Tablet Menu Button */}
+          {/* Mobile/Tablet Menu Button - Visible on tablet and below */}
           <button
             onClick={() => setOpen(!open)}
             className={`lg:hidden p-2 rounded-md transition-colors ${
               solid ? "text-foreground hover:bg-muted" : "text-white hover:bg-white/10"
             }`}
-            aria-label="Menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
             {open ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
@@ -112,10 +125,11 @@ export function Header() {
             <div 
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
               onClick={() => setOpen(false)}
+              aria-hidden="true"
             />
             {/* Drawer */}
-            <div className="fixed left-0 right-0 top-14 sm:top-16 md:top-20 bg-background border-t shadow-xl z-40 max-h-[calc(100vh-3.5rem)] overflow-y-auto animate-slide-down">
-              <nav className="container-luxury py-3 sm:py-4 flex flex-col">
+            <div className="fixed left-0 right-0 top-14 sm:top-16 md:top-20 bg-background border-t shadow-xl z-40 max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-5rem)] overflow-y-auto animate-slide-down">
+              <nav className="container-luxury py-3 sm:py-4 flex flex-col" role="navigation" aria-label="Mobile navigation">
                 {links.map((l) => (
                   <Link
                     key={l.to}
