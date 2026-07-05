@@ -4,7 +4,7 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/assets/(.*)", "destination": "/dist/client/assets/$1" },
-    { "source": "/(.*)", "destination": "/server.js" }
+    { "source": "/assets/(.*)", "destination": "/client/assets/$1" },
+    { "source": "/(.*)", "destination": "/server/server.js" }
   ]
 }
