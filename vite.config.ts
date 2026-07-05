@@ -8,8 +8,19 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
+  },
+  // Add this to ensure assets are handled properly
+  vite: {
+    build: {
+      assetsInlineLimit: 0, // Don't inline images as base64
+      rollupOptions: {
+        output: {
+          assetFileNames: 'assets/[name]-[hash][extname]',
+        },
+      },
+    },
+    publicDir: 'public',
+    assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.webp'],
   },
 });
