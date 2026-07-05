@@ -10,17 +10,11 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  // Add this to ensure assets are handled properly
-  vite: {
-    build: {
-      assetsInlineLimit: 0, // Don't inline images as base64
-      rollupOptions: {
-        output: {
-          assetFileNames: 'assets/[name]-[hash][extname]',
-        },
-      },
+  // Override nitro preset for Vercel
+  nitro: {
+    preset: 'vercel',
+    output: {
+      dir: '.output',
     },
-    publicDir: 'public',
-    assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.webp'],
   },
 });

@@ -1,9 +1,14 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": ".output",
   "installCommand": "npm install",
+  "functions": {
+    "server/index.mjs": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/server.js" }
+    { "source": "/(.*)", "destination": "/server/index.mjs" }
   ]
 }
