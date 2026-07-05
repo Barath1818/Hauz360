@@ -1,66 +1,54 @@
-// src/server.ts (Express fallback)
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
+import "./lib/error-capture";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { consumeLastCapturedError } from "./lib/error-capture";
+import { renderErrorPage } from "./lib/error-page";
 
-const app = express();
+type ServerEntry = {
+  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+};
 
-// Try to find the client files
-const clientPaths = [
-  path.join(__dirname, '../.output/public'),
-  path.join(__dirname, '../dist/client'),
-  path.join(__dirname, '../public'),
-];
+let serverEntryPromise: Promise<ServerEntry> | undefined;
 
-let clientPath = '';
-for (const p of clientPaths) {
-  if (fs.existsSync(p)) {
-    clientPath = p;
-    console.log(`✅ Found client files at: ${p}`);
-    break;
+async function getServerEntry(): Promise<ServerEntry> {
+  if (!serverEntryPromise) {
+    serverEntryPromise = import("@tanstack/react-start/server-entry").then(
+      (m) => (m.default ?? m) as ServerEntry,
+    );
   }
+  return serverEntryPromise;
 }
 
-if (!clientPath) {
-  console.error('❌ No client files found!');
-  clientPath = path.join(__dirname, '../public');
-}
+// h3 swallows in-handler throws into a normal 500 Response with body
+// {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
+async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
+  if (response.status < 500) return response;
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) return response;
 
-// Serve static files
-app.use('/assets', express.static(path.join(clientPath, 'assets'), {
-  maxAge: '1y',
-  immutable: true
-}));
+  const body = await response.clone().text();
+  if (!body.includes('"unhandled":true') || !body.includes('"message":"HTTPError"')) {
+    return response;
+  }
 
-app.use(express.static(clientPath, { maxAge: '1d' }));
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    clientPath,
-    files: fs.existsSync(clientPath) ? fs.readdirSync(clientPath) : []
+  console.error(consumeLastCapturedError() ?? new Error(`h3 swallowed SSR error: ${body}`));
+  return new Response(renderErrorPage(), {
+    status: 500,
+    headers: { "content-type": "text/html; charset=utf-8" },
   });
-});
+}
 
-// API routes
-app.use('/api', (req, res) => {
-  res.status(404).json({ error: 'API not found' });
-});
-
-// Catch-all route
-app.use((req, res) => {
-  const indexPath = path.join(clientPath, 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send(`index.html not found at: ${indexPath}`);
-  }
-});
-
-// Export for Vercel
-export default app;
+export default {
+  async fetch(request: Request, env: unknown, ctx: unknown) {
+    try {
+      const handler = await getServerEntry();
+      const response = await handler.fetch(request, env, ctx);
+      return await normalizeCatastrophicSsrResponse(response);
+    } catch (error) {
+      console.error(error);
+      return new Response(renderErrorPage(), {
+        status: 500,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
+  },
+};

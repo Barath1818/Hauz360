@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://space-cadet-creations.lovable.app/sitemap.xml
