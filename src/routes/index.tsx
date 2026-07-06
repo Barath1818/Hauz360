@@ -32,7 +32,7 @@ import hero from "@/assets/hero-living.jpg";
 // Import images for the 4 new projects
 import bashyamImg1 from "@/assets/bashyam1.jpg";
 import sugalImg1 from "@/assets/sugal1.jpg";
-import aceImg1 from "@/assets/ace1.jpg";
+import aceImg1 from "@/assets/ace4.jpg";
 import nrcImg1 from "@/assets/nrc1.jpg";
 
 import { SectionHeading } from "@/components/site/SectionHeading";

@@ -42,10 +42,10 @@ import sugalImg3 from "@/assets/sugal3.jpg";
 import sugalImg4 from "@/assets/sugal4.jpg";
 
 // The Ace by Risland
-import aceImg1 from "@/assets/ace1.jpg";
+import aceImg1 from "@/assets/ace4.jpg";
 import aceImg2 from "@/assets/ace2.jpg";
 import aceImg3 from "@/assets/ace3.jpg";
-import aceImg4 from "@/assets/ace4.jpg";
+import aceImg4 from "@/assets/ace1.jpg";
 
 // NRC Fresh Cuts
 import nrcImg1 from "@/assets/nrc1.jpg";
