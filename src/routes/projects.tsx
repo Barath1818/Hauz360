@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "./about";
 
@@ -228,11 +228,14 @@ const projects = [
 const categories = ["All", "Bashyam Crown", "Sugal & Damani", "The Ace", "NRC", "Luxury Home", "Villa", "Office", "Kitchen", "Bathroom"];
 
 function Projects() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const list = filter === "All" ? projects : projects.filter(p => p.category === filter);
   const scrollPositionRef = useRef(0);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const isClosingRef = useRef(false);
 
   // Handle body scroll lock with proper restoration
   useEffect(() => {
@@ -243,16 +246,20 @@ function Projects() {
       document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
+      
+      // Add a history entry for back button handling
+      window.history.pushState({ modalOpen: true }, '');
     } else {
       // Restore scroll position
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.overflow = '';
-      // Use requestAnimationFrame to ensure DOM update
-      requestAnimationFrame(() => {
+      
+      if (!isClosingRef.current) {
         window.scrollTo(0, scrollPositionRef.current);
-      });
+      }
+      isClosingRef.current = false;
     }
 
     return () => {
@@ -264,15 +271,40 @@ function Projects() {
     };
   }, [selectedProject]);
 
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (selectedProject) {
+        // Close modal when back button is pressed
+        isClosingRef.current = true;
+        setSelectedProject(null);
+        setCurrentImageIndex(0);
+        // Restore scroll position
+        setTimeout(() => {
+          window.scrollTo(0, scrollPositionRef.current);
+        }, 10);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [selectedProject]);
+
   const openProject = (project: typeof projects[0]) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
   };
 
-  const closeProject = () => {
+  const closeProject = useCallback(() => {
+    if (!selectedProject) return;
+    isClosingRef.current = true;
     setSelectedProject(null);
     setCurrentImageIndex(0);
-  };
+    // Restore scroll position after state update
+    setTimeout(() => {
+      window.scrollTo(0, scrollPositionRef.current);
+    }, 10);
+  }, [selectedProject]);
 
   const nextImage = useCallback(() => {
     if (selectedProject) {
@@ -296,6 +328,7 @@ function Projects() {
       if (!selectedProject) return;
       
       if (e.key === 'Escape') {
+        e.preventDefault();
         closeProject();
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -308,15 +341,14 @@ function Projects() {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProject, nextImage, prevImage]);
+  }, [selectedProject, closeProject, nextImage, prevImage]);
 
-  // Handle touch swipe for mobile - improved with passive listeners
+  // Handle touch swipe for mobile
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    // Only handle if the touch is on the image container
     const target = e.target as HTMLElement;
     if (target.closest('.image-container')) {
       setTouchStartX(e.touches[0].clientX);
@@ -327,7 +359,6 @@ function Projects() {
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isSwiping) return;
     setTouchEndX(e.touches[0].clientX);
-    // Prevent page scroll when swiping on image
     e.preventDefault();
   };
 
@@ -421,7 +452,10 @@ function Projects() {
                 }
               }}
             >
-              <div className="bg-white rounded-2xl max-w-6xl w-full overflow-auto max-h-[98vh] sm:max-h-[95vh] md:max-h-[90vh] relative animate-in fade-in zoom-in duration-300">
+              <div 
+                ref={modalRef}
+                className="bg-white rounded-2xl max-w-6xl w-full overflow-auto max-h-[98vh] sm:max-h-[95vh] md:max-h-[90vh] relative animate-in fade-in zoom-in duration-300"
+              >
                 {/* Close Button */}
                 <button
                   onClick={closeProject}
