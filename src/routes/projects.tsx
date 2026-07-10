@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "./about";
 
 // Import main images
@@ -231,70 +231,118 @@ function Projects() {
   const [filter, setFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const list = filter === "All" ? projects : projects.filter(p => p.category === filter);
+  const scrollPositionRef = useRef(0);
 
-  // Check if screen is mobile
+  // Handle body scroll lock with proper restoration
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    if (selectedProject) {
+      // Save current scroll position
+      scrollPositionRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Restore scroll position
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      // Use requestAnimationFrame to ensure DOM update
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPositionRef.current);
+      });
+    }
+
+    return () => {
+      // Cleanup on unmount
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [selectedProject]);
 
   const openProject = (project: typeof projects[0]) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
-    document.body.style.overflow = 'hidden';
   };
 
   const closeProject = () => {
     setSelectedProject(null);
     setCurrentImageIndex(0);
-    document.body.style.overflow = 'auto';
   };
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex((prev) => 
         prev === selectedProject.images.length - 1 ? 0 : prev + 1
       );
     }
-  };
+  }, [selectedProject]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex((prev) => 
         prev === 0 ? selectedProject.images.length - 1 : prev - 1
       );
     }
-  };
+  }, [selectedProject]);
 
-  // Handle touch swipe for mobile
+  // Handle keyboard events
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedProject) return;
+      
+      if (e.key === 'Escape') {
+        closeProject();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevImage();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextImage();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject, nextImage, prevImage]);
+
+  // Handle touch swipe for mobile - improved with passive listeners
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
+    // Only handle if the touch is on the image container
+    const target = e.target as HTMLElement;
+    if (target.closest('.image-container')) {
+      setTouchStartX(e.touches[0].clientX);
+      setIsSwiping(true);
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isSwiping) return;
     setTouchEndX(e.touches[0].clientX);
+    // Prevent page scroll when swiping on image
+    e.preventDefault();
   };
 
   const handleTouchEnd = () => {
+    if (!isSwiping) return;
+    
     if (touchStartX - touchEndX > 50) {
-      // Swipe left - next image
       nextImage();
-    }
-    if (touchStartX - touchEndX < -50) {
-      // Swipe right - previous image
+    } else if (touchStartX - touchEndX < -50) {
       prevImage();
     }
+    
     setTouchStartX(0);
     setTouchEndX(0);
+    setIsSwiping(false);
   };
 
   return (
@@ -374,7 +422,7 @@ function Projects() {
               }}
             >
               <div className="bg-white rounded-2xl max-w-6xl w-full overflow-auto max-h-[98vh] sm:max-h-[95vh] md:max-h-[90vh] relative animate-in fade-in zoom-in duration-300">
-                {/* Close Button - Better positioned for mobile */}
+                {/* Close Button */}
                 <button
                   onClick={closeProject}
                   className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-2xl md:text-3xl font-bold text-gray-700 hover:text-gray-900 transition-colors z-20 bg-white/90 hover:bg-white rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl"
@@ -383,10 +431,10 @@ function Projects() {
                   ×
                 </button>
 
-                {/* Image Carousel - Better responsive sizing */}
+                {/* Image Carousel */}
                 <div className="relative bg-black/5">
                   <div 
-                    className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] overflow-hidden flex items-center justify-center bg-gray-100"
+                    className="image-container aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] overflow-hidden flex items-center justify-center bg-gray-100 relative touch-none"
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
@@ -394,16 +442,17 @@ function Projects() {
                     <img
                       src={selectedProject.images[currentImageIndex]}
                       alt={`${selectedProject.name} - Image ${currentImageIndex + 1}`}
-                      className="w-full h-full object-contain transition-opacity duration-500"
+                      className="w-full h-full object-contain transition-opacity duration-500 pointer-events-none"
+                      draggable="false"
                     />
                   </div>
 
-                  {/* Image Counter - Responsive positioning */}
+                  {/* Image Counter */}
                   <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-medium backdrop-blur-sm">
                     {currentImageIndex + 1} / {selectedProject.images.length}
                   </div>
 
-                  {/* Navigation Buttons - Responsive sizing and positioning */}
+                  {/* Navigation Buttons */}
                   {selectedProject.images.length > 1 && (
                     <>
                       <button
@@ -427,7 +476,7 @@ function Projects() {
                     </>
                   )}
 
-                  {/* Thumbnail Strip - Improved responsive design */}
+                  {/* Thumbnail Strip */}
                   {selectedProject.images.length > 1 && (
                     <div className="absolute bottom-10 sm:bottom-14 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-black/50 backdrop-blur-sm rounded-lg overflow-x-auto max-w-[90%] sm:max-w-[85%] md:max-w-[80%]">
                       {selectedProject.images.map((img, idx) => (
@@ -444,6 +493,7 @@ function Projects() {
                             src={img}
                             alt={`Thumbnail ${idx + 1}`}
                             className="w-full h-full object-cover"
+                            draggable="false"
                           />
                         </button>
                       ))}
@@ -451,7 +501,7 @@ function Projects() {
                   )}
                 </div>
 
-                {/* Project Details - Responsive padding and layout */}
+                {/* Project Details */}
                 <div className="p-4 sm:p-6 md:p-8">
                   <div className="flex flex-wrap items-start justify-between mb-4 sm:mb-6">
                     <div>
