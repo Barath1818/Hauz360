@@ -142,30 +142,38 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <HeadContent />
-
-        {/* Google Analytics (gtag.js) */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-C08XQ5R8SL"
-        ></script>
+        {/* Google Tag Manager - Head Script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-C08XQ5R8SL');
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-WTH8VXNK');
               
-              // Console log for testing (remove in production)
-              console.log('✅ Google Analytics initialized with ID: G-C08XQ5R8SL');
-              console.log('📊 dataLayer:', window.dataLayer);
+              // Debug console log (remove in production)
+              console.log('✅ Google Tag Manager initialized with ID: GTM-WTH8VXNK');
             `,
           }}
         />
+        {/* End Google Tag Manager */}
+
+        <HeadContent />
       </head>
 
       <body>
+        {/* Google Tag Manager (noscript) - Immediately after opening body tag */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WTH8VXNK"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         {children}
         <Scripts />
       </body>
