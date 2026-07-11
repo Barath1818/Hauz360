@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { P as PageHeader, h as hallImg } from "./router-BW5Q1yVC.mjs";
+import { P as PageHeader, h as hallImg } from "./router-Bj_OSdnz.mjs";
 import { k as kitchenImg, o as officeImg, c as commercialImg } from "./commercial-BYQZEF1y.mjs";
 import { b as bedroomImg } from "./bedroom-CgpgAMwL.mjs";
 import { v as villaImg } from "./villa-k3wPOkWd.mjs";

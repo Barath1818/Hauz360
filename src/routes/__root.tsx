@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import GoogleTagManager from "../components/GoogleTagManager";
 import {
   Outlet,
   Link,
@@ -181,24 +181,25 @@ f.parentNode.insertBefore(j,f);
   );
 }
 
+
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
+
+      <GoogleTagManager />
+
       <div className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
-        {/* HEADER */}
         <Header />
 
-        {/* MAIN */}
         <main className="flex-1 pt-20">
           <Outlet />
         </main>
 
-        {/* FOOTER */}
         <Footer />
 
-        {/* FLOATING BUTTONS */}
         <FloatingButtons />
       </div>
     </QueryClientProvider>

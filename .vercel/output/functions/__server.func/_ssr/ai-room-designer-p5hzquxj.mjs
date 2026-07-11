@@ -1,7 +1,7 @@
 import { j as jsxRuntimeExports, r as reactExports } from "../_libs/react.mjs";
 import { o as officeImg, c as commercialImg, k as kitchenImg } from "./commercial-BYQZEF1y.mjs";
 import { b as bedroomImg } from "./bedroom-CgpgAMwL.mjs";
-import { o as office1Img, h as hallImg } from "./router-BW5Q1yVC.mjs";
+import { o as office1Img, h as hallImg } from "./router-Bj_OSdnz.mjs";
 import { v as villaImg } from "./villa-k3wPOkWd.mjs";
 import { S as Sparkles, W as WandSparkles, D as Download } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__query-core.mjs";

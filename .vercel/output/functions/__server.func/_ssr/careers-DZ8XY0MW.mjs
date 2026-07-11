@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { P as PageHeader, S as SectionHeading } from "./router-BW5Q1yVC.mjs";
+import { P as PageHeader, S as SectionHeading } from "./router-Bj_OSdnz.mjs";
 import { G as GraduationCap, U as Users, S as Sparkles, B as Briefcase, a as MapPin, l as Clock, b as Mail } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__query-core.mjs";
 import "../_libs/tanstack__react-query.mjs";

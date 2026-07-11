@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { S as SectionHeading } from "./router-BW5Q1yVC.mjs";
+import { S as SectionHeading } from "./router-Bj_OSdnz.mjs";
 import { v as villaImg } from "./villa-k3wPOkWd.mjs";
 import { E as Eye, T as Target, C as CircleCheck } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__query-core.mjs";

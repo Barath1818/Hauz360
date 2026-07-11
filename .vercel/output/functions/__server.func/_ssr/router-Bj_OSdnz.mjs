@@ -1,6 +1,6 @@
 import { Q as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { Q as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
-import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent, d as useRouterState } from "../_libs/tanstack__react-router.mjs";
+import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent, d as useRouterState, e as useNavigate } from "../_libs/tanstack__react-router.mjs";
 import { j as jsxRuntimeExports, r as reactExports } from "../_libs/react.mjs";
 import { X, M as Menu, I as Instagram, a as MapPin, P as Phone, b as Mail, S as Sparkles, A as ArrowRight, C as CircleCheck, H as House, B as Briefcase, c as ChefHat, d as Bed, e as Sofa, f as Store, L as LayoutGrid, g as Box, h as Hammer, i as Star, j as MessageCircle, k as Send } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__router-core.mjs";
@@ -16,7 +16,20 @@ import "crypto";
 import "async_hooks";
 import "stream";
 import "../_libs/isbot.mjs";
-const appCss = "/assets/styles-CQNIw-mx.css";
+const GTM_ID = "GTM-WTH8VXNK";
+function GoogleTagManager() {
+  reactExports.useEffect(() => {
+    if (document.getElementById("gtm-script")) return;
+    window.dataLayer = window.dataLayer || [];
+    const script = document.createElement("script");
+    script.id = "gtm-script";
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+    document.head.appendChild(script);
+  }, []);
+  return null;
+}
+const appCss = "/assets/styles-B5W05-km.css";
 function Logo({ light = false, className = "" }) {
   const base = light ? "text-white" : "text-[#1a2332]";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -660,12 +673,37 @@ const Route$c = createRootRouteWithContext()({
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent
 });
-function RootShell({
-  children
-}) {
+function RootShell({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("html", { lang: "en", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("head", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(HeadContent, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("head", { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("meta", { name: "test-root", content: "working" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: {
+            __html: `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WTH8VXNK');
+      `
+          }
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(HeadContent, {})
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("body", { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("noscript", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "iframe",
+        {
+          src: "https://www.googletagmanager.com/ns.html?id=GTM-WTH8VXNK",
+          height: "0",
+          width: "0",
+          style: { display: "none", visibility: "hidden" }
+        }
+      ) }),
       children,
       /* @__PURE__ */ jsxRuntimeExports.jsx(Scripts, {})
     ] })
@@ -673,14 +711,17 @@ function RootShell({
 }
 function RootComponent() {
   const { queryClient } = Route$c.useRouteContext();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 pt-20", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(FloatingButtons, {})
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(QueryClientProvider, { client: queryClient, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(GoogleTagManager, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Header, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 pt-20", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(FloatingButtons, {})
+    ] })
+  ] });
 }
-const $$splitComponentImporter$8 = () => import("./thank-you-YWLN26bv.mjs");
+const $$splitComponentImporter$8 = () => import("./thank-you-D9prQXFh.mjs");
 const Route$b = createFileRoute("/thank-you")({
   head: () => ({
     meta: [{
@@ -723,7 +764,7 @@ const reviews = [{
   role: "Retail Showroom, Dubai",
   rating: 4
 }];
-const $$splitComponentImporter$7 = () => import("./testimonials-DGH4TB_t.mjs");
+const $$splitComponentImporter$7 = () => import("./testimonials-Dy_cWXcz.mjs");
 const Route$a = createFileRoute("/testimonials")({
   head: () => ({
     meta: [{
@@ -789,7 +830,7 @@ ${urls}
     }
   }
 });
-const $$splitComponentImporter$6 = () => import("./services-Drdo-lW5.mjs");
+const $$splitComponentImporter$6 = () => import("./services-DaBo-090.mjs");
 const Route$8 = createFileRoute("/services")({
   head: () => ({
     meta: [{
@@ -831,7 +872,7 @@ const Route$8 = createFileRoute("/services")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$6, "component")
 });
-const $$splitComponentImporter$5 = () => import("./about-DBQUKe7t.mjs");
+const $$splitComponentImporter$5 = () => import("./about-C3nzsn7J.mjs");
 const Route$7 = createFileRoute("/about")({
   head: () => ({
     meta: [{
@@ -897,10 +938,10 @@ const sugalImg1 = "/assets/sugal1-BSa_KcQT.jpg";
 const sugalImg2 = "/assets/sugal2-_vZyl_h-.jpg";
 const sugalImg3 = "/assets/sugal3-CxtLXFak.jpg";
 const sugalImg4 = "/assets/sugal4-mcjGR4F-.jpg";
-const aceImg1 = "/assets/ace1-Bxpp3K56.jpg";
+const aceImg1$1 = "/assets/ace1-Bxpp3K56.jpg";
 const aceImg2 = "/assets/ace2-C39fre-8.jpg";
 const aceImg3 = "/assets/ace3-Cr6OX8Mj.jpg";
-const aceImg4 = "/assets/ace4-CVN9nXlG.jpg";
+const aceImg1 = "/assets/ace4-CVN9nXlG.jpg";
 const nrcImg1 = "/assets/nrc1-CcPAe8VW.jpg";
 const nrcImg2 = "/assets/nrc2-BW6JX5V_.jpg";
 const nrcImg3 = "/assets/nrc3-C8vD-lFw.jpg";
@@ -947,8 +988,8 @@ const projects$1 = [
   },
   {
     id: "the-ace-by-risland",
-    mainImg: aceImg1,
-    images: [aceImg1, aceImg2, aceImg3, aceImg4],
+    mainImg: aceImg1$1,
+    images: [aceImg1$1, aceImg2, aceImg3, aceImg1],
     name: "The Ace by Risland",
     category: "The Ace",
     location: "Chennai, India",
@@ -1076,60 +1117,122 @@ const projects$1 = [
 ];
 const categories = ["All", "Bashyam Crown", "Sugal & Damani", "The Ace", "NRC", "Luxury Home", "Villa", "Office", "Kitchen", "Bathroom"];
 function Projects() {
+  useNavigate();
   const [filter, setFilter] = reactExports.useState("All");
   const [selectedProject, setSelectedProject] = reactExports.useState(null);
   const [currentImageIndex, setCurrentImageIndex] = reactExports.useState(0);
-  const [isMobile, setIsMobile] = reactExports.useState(false);
   const list = filter === "All" ? projects$1 : projects$1.filter((p) => p.category === filter);
+  const scrollPositionRef = reactExports.useRef(0);
+  const modalRef = reactExports.useRef(null);
+  const isClosingRef = reactExports.useRef(false);
   reactExports.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    if (selectedProject) {
+      scrollPositionRef.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+      window.history.pushState({ modalOpen: true }, "");
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      if (!isClosingRef.current) {
+        window.scrollTo(0, scrollPositionRef.current);
+      }
+      isClosingRef.current = false;
+    }
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [selectedProject]);
+  reactExports.useEffect(() => {
+    const handlePopState = (event) => {
+      if (selectedProject) {
+        isClosingRef.current = true;
+        setSelectedProject(null);
+        setCurrentImageIndex(0);
+        setTimeout(() => {
+          window.scrollTo(0, scrollPositionRef.current);
+        }, 10);
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [selectedProject]);
   const openProject = (project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
-    document.body.style.overflow = "hidden";
   };
-  const closeProject = () => {
+  const closeProject = reactExports.useCallback(() => {
+    if (!selectedProject) return;
+    isClosingRef.current = true;
     setSelectedProject(null);
     setCurrentImageIndex(0);
-    document.body.style.overflow = "auto";
-  };
-  const nextImage = () => {
+    setTimeout(() => {
+      window.scrollTo(0, scrollPositionRef.current);
+    }, 10);
+  }, [selectedProject]);
+  const nextImage = reactExports.useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex(
         (prev) => prev === selectedProject.images.length - 1 ? 0 : prev + 1
       );
     }
-  };
-  const prevImage = () => {
+  }, [selectedProject]);
+  const prevImage = reactExports.useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex(
         (prev) => prev === 0 ? selectedProject.images.length - 1 : prev - 1
       );
     }
-  };
+  }, [selectedProject]);
+  reactExports.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedProject) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeProject();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        prevImage();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        nextImage();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject, closeProject, nextImage, prevImage]);
   const [touchStartX, setTouchStartX] = reactExports.useState(0);
   const [touchEndX, setTouchEndX] = reactExports.useState(0);
+  const [isSwiping, setIsSwiping] = reactExports.useState(false);
   const handleTouchStart = (e) => {
-    setTouchStartX(e.touches[0].clientX);
+    const target = e.target;
+    if (target.closest(".image-container")) {
+      setTouchStartX(e.touches[0].clientX);
+      setIsSwiping(true);
+    }
   };
   const handleTouchMove = (e) => {
+    if (!isSwiping) return;
     setTouchEndX(e.touches[0].clientX);
+    e.preventDefault();
   };
   const handleTouchEnd = () => {
+    if (!isSwiping) return;
     if (touchStartX - touchEndX > 50) {
       nextImage();
-    }
-    if (touchStartX - touchEndX < -50) {
+    } else if (touchStartX - touchEndX < -50) {
       prevImage();
     }
     setTouchStartX(0);
     setTouchEndX(0);
+    setIsSwiping(false);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(PageHeader, { eyebrow: "Portfolio", title: "Our Recent Projects" }),
@@ -1191,117 +1294,126 @@ function Projects() {
               closeProject();
             }
           },
-          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-2xl max-w-6xl w-full overflow-auto max-h-[98vh] sm:max-h-[95vh] md:max-h-[90vh] relative animate-in fade-in zoom-in duration-300", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                onClick: closeProject,
-                className: "absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-2xl md:text-3xl font-bold text-gray-700 hover:text-gray-900 transition-colors z-20 bg-white/90 hover:bg-white rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl",
-                "aria-label": "Close project",
-                children: "×"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative bg-black/5", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "div",
-                {
-                  className: "aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] overflow-hidden flex items-center justify-center bg-gray-100",
-                  onTouchStart: handleTouchStart,
-                  onTouchMove: handleTouchMove,
-                  onTouchEnd: handleTouchEnd,
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "img",
-                    {
-                      src: selectedProject.images[currentImageIndex],
-                      alt: `${selectedProject.name} - Image ${currentImageIndex + 1}`,
-                      className: "w-full h-full object-contain transition-opacity duration-500"
-                    }
-                  )
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-2 sm:bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-medium backdrop-blur-sm", children: [
-                currentImageIndex + 1,
-                " / ",
-                selectedProject.images.length
-              ] }),
-              selectedProject.images.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              ref: modalRef,
+              className: "bg-white rounded-2xl max-w-6xl w-full overflow-auto max-h-[98vh] sm:max-h-[95vh] md:max-h-[90vh] relative animate-in fade-in zoom-in duration-300",
+              children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "button",
                   {
-                    onClick: prevImage,
-                    className: "absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110",
-                    "aria-label": "Previous image",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M15 19l-7-7 7-7" }) })
+                    onClick: closeProject,
+                    className: "absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 text-2xl md:text-3xl font-bold text-gray-700 hover:text-gray-900 transition-colors z-20 bg-white/90 hover:bg-white rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl",
+                    "aria-label": "Close project",
+                    children: "×"
                   }
                 ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "button",
-                  {
-                    onClick: nextImage,
-                    className: "absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110",
-                    "aria-label": "Next image",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 5l7 7-7 7" }) })
-                  }
-                )
-              ] }),
-              selectedProject.images.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-10 sm:bottom-14 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-black/50 backdrop-blur-sm rounded-lg overflow-x-auto max-w-[90%] sm:max-w-[85%] md:max-w-[80%]", children: selectedProject.images.map((img, idx) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  onClick: () => setCurrentImageIndex(idx),
-                  className: `flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 ${currentImageIndex === idx ? "border-white scale-110" : "border-transparent hover:border-white/50"}`,
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "img",
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative bg-black/5", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
                     {
-                      src: img,
-                      alt: `Thumbnail ${idx + 1}`,
-                      className: "w-full h-full object-cover"
+                      className: "image-container aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/10] overflow-hidden flex items-center justify-center bg-gray-100 relative touch-none",
+                      onTouchStart: handleTouchStart,
+                      onTouchMove: handleTouchMove,
+                      onTouchEnd: handleTouchEnd,
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "img",
+                        {
+                          src: selectedProject.images[currentImageIndex],
+                          alt: `${selectedProject.name} - Image ${currentImageIndex + 1}`,
+                          className: "w-full h-full object-contain transition-opacity duration-500 pointer-events-none",
+                          draggable: "false"
+                        }
+                      )
                     }
-                  )
-                },
-                idx
-              )) })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 sm:p-6 md:p-8", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-start justify-between mb-4 sm:mb-6", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs sm:text-sm tracking-[0.25em] uppercase text-gold font-semibold", children: selectedProject.category }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-1 sm:mt-2", children: selectedProject.name })
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-2 sm:bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-medium backdrop-blur-sm", children: [
+                    currentImageIndex + 1,
+                    " / ",
+                    selectedProject.images.length
+                  ] }),
+                  selectedProject.images.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        onClick: prevImage,
+                        className: "absolute left-1 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110",
+                        "aria-label": "Previous image",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M15 19l-7-7 7-7" }) })
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        onClick: nextImage,
+                        className: "absolute right-1 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110",
+                        "aria-label": "Next image",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 5l7 7-7 7" }) })
+                      }
+                    )
+                  ] }),
+                  selectedProject.images.length > 1 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-10 sm:bottom-14 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-black/50 backdrop-blur-sm rounded-lg overflow-x-auto max-w-[90%] sm:max-w-[85%] md:max-w-[80%]", children: selectedProject.images.map((img, idx) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: () => setCurrentImageIndex(idx),
+                      className: `flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 ${currentImageIndex === idx ? "border-white scale-110" : "border-transparent hover:border-white/50"}`,
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "img",
+                        {
+                          src: img,
+                          alt: `Thumbnail ${idx + 1}`,
+                          className: "w-full h-full object-cover",
+                          draggable: "false"
+                        }
+                      )
+                    },
+                    idx
+                  )) })
                 ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 sm:mt-0 bg-gold/10 text-gold px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold", children: selectedProject.time })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Location" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.location })
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Area" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.area })
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl col-span-2 md:col-span-1", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Style" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.style })
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 sm:p-6 md:p-8", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-start justify-between mb-4 sm:mb-6", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs sm:text-sm tracking-[0.25em] uppercase text-gold font-semibold", children: selectedProject.category }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-1 sm:mt-2", children: selectedProject.name })
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 sm:mt-0 bg-gold/10 text-gold px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold", children: selectedProject.time })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Location" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.location })
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Area" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.area })
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 p-3 sm:p-4 rounded-xl col-span-2 md:col-span-1", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-xs text-gray-500 uppercase tracking-wider mb-1", children: "Style" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base font-semibold", children: selectedProject.style })
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6 sm:mb-8", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg sm:text-xl font-bold mb-2 sm:mb-3", children: "Project Description" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base text-gray-600 leading-6 sm:leading-7 md:leading-8", children: selectedProject.description })
+                  ] }),
+                  selectedProject.features && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg sm:text-xl font-bold mb-2 sm:mb-3", children: "Key Features" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3", children: selectedProject.features.map((feature, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-center gap-2 sm:gap-3 text-sm sm:text-base text-gray-700", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gold text-base sm:text-xl", children: "✦" }),
+                      feature
+                    ] }, idx)) })
+                  ] })
                 ] })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6 sm:mb-8", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg sm:text-xl font-bold mb-2 sm:mb-3", children: "Project Description" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm sm:text-base text-gray-600 leading-6 sm:leading-7 md:leading-8", children: selectedProject.description })
-              ] }),
-              selectedProject.features && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg sm:text-xl font-bold mb-2 sm:mb-3", children: "Key Features" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3", children: selectedProject.features.map((feature, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-center gap-2 sm:gap-3 text-sm sm:text-base text-gray-700", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gold text-base sm:text-xl", children: "✦" }),
-                  feature
-                ] }, idx)) })
-              ] })
-            ] })
-          ] })
+              ]
+            }
+          )
         }
       )
     ] }) })
   ] });
 }
-const $$splitComponentImporter$4 = () => import("./process-BaWddQ5q.mjs");
+const $$splitComponentImporter$4 = () => import("./process-BEQ-ut4v.mjs");
 const Route$5 = createFileRoute("/process")({
   head: () => ({
     meta: [{
@@ -1326,7 +1438,7 @@ const Route$5 = createFileRoute("/process")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./gallery-CRjPu_8N.mjs");
+const $$splitComponentImporter$3 = () => import("./gallery-CR5qpMc8.mjs");
 const Route$4 = createFileRoute("/gallery")({
   head: () => ({
     meta: [{
@@ -1351,7 +1463,7 @@ const Route$4 = createFileRoute("/gallery")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./contact-CHGz44gC.mjs");
+const $$splitComponentImporter$2 = () => import("./contact-281Gpt13.mjs");
 const Route$3 = createFileRoute("/contact")({
   head: () => ({
     meta: [{
@@ -1363,11 +1475,11 @@ const Route$3 = createFileRoute("/contact")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./careers-mo77T31n.mjs");
+const $$splitComponentImporter$1 = () => import("./careers-DZ8XY0MW.mjs");
 const Route$2 = createFileRoute("/careers")({
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./ai-room-designer-CyRKX0Z6.mjs");
+const $$splitComponentImporter = () => import("./ai-room-designer-p5hzquxj.mjs");
 const Route$1 = createFileRoute("/ai-room-designer")({
   component: lazyRouteComponent($$splitComponentImporter, "component")
 });
