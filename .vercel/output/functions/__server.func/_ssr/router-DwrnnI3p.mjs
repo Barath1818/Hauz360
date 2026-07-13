@@ -721,7 +721,7 @@ function RootComponent() {
     ] })
   ] });
 }
-const $$splitComponentImporter$8 = () => import("./thank-you-D9prQXFh.mjs");
+const $$splitComponentImporter$8 = () => import("./thank-you-CMGPkL7k.mjs");
 const Route$b = createFileRoute("/thank-you")({
   head: () => ({
     meta: [{
@@ -764,7 +764,7 @@ const reviews = [{
   role: "Retail Showroom, Dubai",
   rating: 4
 }];
-const $$splitComponentImporter$7 = () => import("./testimonials-Dy_cWXcz.mjs");
+const $$splitComponentImporter$7 = () => import("./testimonials-CVdy0UYo.mjs");
 const Route$a = createFileRoute("/testimonials")({
   head: () => ({
     meta: [{
@@ -830,7 +830,7 @@ ${urls}
     }
   }
 });
-const $$splitComponentImporter$6 = () => import("./services-DaBo-090.mjs");
+const $$splitComponentImporter$6 = () => import("./services-BRdG0Pek.mjs");
 const Route$8 = createFileRoute("/services")({
   head: () => ({
     meta: [{
@@ -872,7 +872,7 @@ const Route$8 = createFileRoute("/services")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$6, "component")
 });
-const $$splitComponentImporter$5 = () => import("./about-C3nzsn7J.mjs");
+const $$splitComponentImporter$5 = () => import("./about-Ca6a4846.mjs");
 const Route$7 = createFileRoute("/about")({
   head: () => ({
     meta: [{
@@ -1134,36 +1134,49 @@ function Projects() {
       document.body.style.overflow = "hidden";
       window.history.pushState({ modalOpen: true }, "");
     } else {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      if (!isClosingRef.current) {
-        window.scrollTo(0, scrollPositionRef.current);
-      }
-      isClosingRef.current = false;
+      restoreBodyScroll();
     }
     return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
+      restoreBodyScroll();
     };
   }, [selectedProject]);
+  const restoreBodyScroll = reactExports.useCallback(() => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    document.body.style.overflow = "";
+    if (scrollPositionRef.current > 0) {
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  }, []);
   reactExports.useEffect(() => {
     const handlePopState = (event) => {
       if (selectedProject) {
         isClosingRef.current = true;
         setSelectedProject(null);
         setCurrentImageIndex(0);
-        setTimeout(() => {
-          window.scrollTo(0, scrollPositionRef.current);
-        }, 10);
+        restoreBodyScroll();
       }
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [selectedProject]);
+  }, [selectedProject, restoreBodyScroll]);
+  reactExports.useEffect(() => {
+    return () => {
+      if (selectedProject) {
+        restoreBodyScroll();
+      }
+    };
+  }, [selectedProject, restoreBodyScroll]);
+  reactExports.useEffect(() => {
+    const handleBeforeUnload = () => {
+      restoreBodyScroll();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [restoreBodyScroll]);
   const openProject = (project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
@@ -1173,10 +1186,8 @@ function Projects() {
     isClosingRef.current = true;
     setSelectedProject(null);
     setCurrentImageIndex(0);
-    setTimeout(() => {
-      window.scrollTo(0, scrollPositionRef.current);
-    }, 10);
-  }, [selectedProject]);
+    restoreBodyScroll();
+  }, [selectedProject, restoreBodyScroll]);
   const nextImage = reactExports.useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex(
@@ -1413,7 +1424,7 @@ function Projects() {
     ] }) })
   ] });
 }
-const $$splitComponentImporter$4 = () => import("./process-BEQ-ut4v.mjs");
+const $$splitComponentImporter$4 = () => import("./process-DynD04rO.mjs");
 const Route$5 = createFileRoute("/process")({
   head: () => ({
     meta: [{
@@ -1438,7 +1449,7 @@ const Route$5 = createFileRoute("/process")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./gallery-CR5qpMc8.mjs");
+const $$splitComponentImporter$3 = () => import("./gallery-C6tb750l.mjs");
 const Route$4 = createFileRoute("/gallery")({
   head: () => ({
     meta: [{
@@ -1463,7 +1474,7 @@ const Route$4 = createFileRoute("/gallery")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./contact-281Gpt13.mjs");
+const $$splitComponentImporter$2 = () => import("./contact-BguLRQD7.mjs");
 const Route$3 = createFileRoute("/contact")({
   head: () => ({
     meta: [{
@@ -1475,11 +1486,11 @@ const Route$3 = createFileRoute("/contact")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./careers-DZ8XY0MW.mjs");
+const $$splitComponentImporter$1 = () => import("./careers-C_R5lun3.mjs");
 const Route$2 = createFileRoute("/careers")({
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./ai-room-designer-p5hzquxj.mjs");
+const $$splitComponentImporter = () => import("./ai-room-designer-C7OufcG4.mjs");
 const Route$1 = createFileRoute("/ai-room-designer")({
   component: lazyRouteComponent($$splitComponentImporter, "component")
 });

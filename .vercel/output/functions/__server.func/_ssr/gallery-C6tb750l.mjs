@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { P as PageHeader, l as livingImg, v as villaImg } from "./router-Bj_OSdnz.mjs";
+import { P as PageHeader, l as livingImg, v as villaImg } from "./router-DwrnnI3p.mjs";
 import { k as kitchenImg, o as officeImg, c as commercialImg } from "./commercial-BYQZEF1y.mjs";
 import "../_libs/tanstack__query-core.mjs";
 import "../_libs/tanstack__react-query.mjs";

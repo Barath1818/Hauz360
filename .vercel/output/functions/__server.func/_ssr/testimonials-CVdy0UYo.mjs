@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { P as PageHeader, r as reviews } from "./router-Bj_OSdnz.mjs";
+import { P as PageHeader, r as reviews } from "./router-DwrnnI3p.mjs";
 import { Q as Quote, i as Star } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__query-core.mjs";
 import "../_libs/tanstack__react-query.mjs";
