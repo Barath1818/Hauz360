@@ -237,7 +237,9 @@ function Projects() {
   const modalRef = useRef<HTMLDivElement>(null);
   const isClosingRef = useRef(false);
 
-  // Handle body scroll lock with proper restoration
+  // ============================================
+  // FIXED: Handle body scroll lock with proper restoration
+  // ============================================
   useEffect(() => {
     if (selectedProject) {
       // Save current scroll position
@@ -251,27 +253,30 @@ function Projects() {
       window.history.pushState({ modalOpen: true }, '');
     } else {
       // Restore scroll position
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      
-      if (!isClosingRef.current) {
-        window.scrollTo(0, scrollPositionRef.current);
-      }
-      isClosingRef.current = false;
+      restoreBodyScroll();
     }
 
+    // CRITICAL: Cleanup function that always runs on unmount
     return () => {
-      // Cleanup on unmount
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
+      restoreBodyScroll();
     };
   }, [selectedProject]);
 
-  // Handle browser back button
+  // Helper function to restore body scroll
+  const restoreBodyScroll = useCallback(() => {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    
+    if (scrollPositionRef.current > 0) {
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  }, []);
+
+  // ============================================
+  // FIXED: Handle browser back button with proper cleanup
+  // ============================================
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
       if (selectedProject) {
@@ -279,16 +284,41 @@ function Projects() {
         isClosingRef.current = true;
         setSelectedProject(null);
         setCurrentImageIndex(0);
-        // Restore scroll position
-        setTimeout(() => {
-          window.scrollTo(0, scrollPositionRef.current);
-        }, 10);
+        // Restore scroll position immediately
+        restoreBodyScroll();
       }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [selectedProject]);
+  }, [selectedProject, restoreBodyScroll]);
+
+  // ============================================
+  // FIXED: Handle route changes to ensure scroll is restored
+  // ============================================
+  useEffect(() => {
+    // Cleanup function that runs when component unmounts or route changes
+    return () => {
+      if (selectedProject) {
+        restoreBodyScroll();
+      }
+    };
+  }, [selectedProject, restoreBodyScroll]);
+
+  // ============================================
+  // FIXED: Handle beforeunload event for safety
+  // ============================================
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      restoreBodyScroll();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [restoreBodyScroll]);
 
   const openProject = (project: typeof projects[0]) => {
     setSelectedProject(project);
@@ -300,11 +330,9 @@ function Projects() {
     isClosingRef.current = true;
     setSelectedProject(null);
     setCurrentImageIndex(0);
-    // Restore scroll position after state update
-    setTimeout(() => {
-      window.scrollTo(0, scrollPositionRef.current);
-    }, 10);
-  }, [selectedProject]);
+    // Restore scroll position immediately
+    restoreBodyScroll();
+  }, [selectedProject, restoreBodyScroll]);
 
   const nextImage = useCallback(() => {
     if (selectedProject) {
