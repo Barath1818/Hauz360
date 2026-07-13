@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GoogleTagManager from "../components/GoogleTagManager";
+import GoogleAnalytics from "../components/GoogleAnalytics"; // Add this import
 import {
   Outlet,
   Link,
@@ -9,7 +10,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
-import { type ReactNode } from "react";
+import { type ReactNode } from "react"; 
 
 import appCss from "../styles.css?url";
 
@@ -142,54 +143,52 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
     <head>
-  {/* Test Meta Tag */}
-  <meta name="test-root" content="working" />
+      {/* Test Meta Tag */}
+      <meta name="test-root" content="working" />
 
-  {/* Google Tag Manager */}
-  <script
-    dangerouslySetInnerHTML={{
-      __html: `
+      {/* Google Tag Manager */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;
 f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WTH8VXNK');
-      `,
-    }}
-  />
+          `,
+        }}
+      />
 
-  <HeadContent />
-</head>
+      <HeadContent />
+    </head>
 
-      <body>
-        {/* Google Tag Manager (noscript) - Immediately after opening body tag */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WTH8VXNK"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
+    <body>
+      {/* Google Tag Manager (noscript) - Immediately after opening body tag */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-WTH8VXNK"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        />
+      </noscript>
+      {/* End Google Tag Manager (noscript) */}
 
-        {children}
-        <Scripts />
-      </body>
+      {children}
+      <Scripts />
+    </body>
     </html>
   );
 }
-
-
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-
       <GoogleTagManager />
+      <GoogleAnalytics /> {/* Add this line */}
 
       <div className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
         <Header />
